@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const FormItemGroup: FC<Props> = ({ children, title }) => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   return (
     <Grid item xs={12}>
       <Card variant="outlined">
@@ -21,11 +21,6 @@ export const FormItemGroup: FC<Props> = ({ children, title }) => {
           avatar={
             <IconButton size="small" onClick={() => setShow(p => !p)}>
               {show ? <FiArrowUp /> : <FiArrowDown />}
-            </IconButton>
-          }
-          action={
-            <IconButton size="small">
-              <FiPlus />
             </IconButton>
           }
         />

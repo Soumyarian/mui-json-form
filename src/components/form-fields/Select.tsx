@@ -21,25 +21,32 @@ export const Select: FC<Props> = ({
   disabled = false,
   placeholder = "",
 }) => {
-  const { formik } = useFormContext();
+  const { form } = useFormContext();
+  form.register(name);
+  const value = form.getValues(name);
+  const { errors } = form.formState;
+
   return (
     <Autocomplete
       multiple={multiple}
       disabled={disabled}
       options={options}
       getOptionLabel={option => option.label}
-      value={formik.values[name]}
-      onChange={(_, value) => formik.setFieldValue(name, value)}
+      disableCloseOnSelect={multiple}
+      defaultValue={value}
+      onChange={(_, value) => form.setValue(name, value)}
       renderInput={params => (
         <TextField
           {...params}
           variant="standard"
           label={label}
           placeholder={placeholder}
-          error={formik.touched[name] ? Boolean(formik.errors[name]) : false}
-          helperText={formik.touched[name] && (formik.errors[name] as string)}
+          error={Boolean(errors[name])}
+          helperText={errors[name] ? (errors[name]!.message as string) : ""}
         />
       )}
     />
   );
 };
+
+// Consolas, "Courier New";

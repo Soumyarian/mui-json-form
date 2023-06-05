@@ -14,6 +14,13 @@ export interface FormSection {
   components: (FormItem | FormGroup)[];
 }
 
+export type ValidationSchemaTypes = "string" | "number" | "array" | "date";
+
+export interface ValidationTypes {
+  type: string;
+  params: [string] | [string | number, string];
+}
+
 export interface CommonGroupProps {
   id: string;
   title: string;
@@ -38,6 +45,9 @@ export interface CommonFormItemProps {
   componentType: "item";
   jsonName: string;
   disabled?: boolean;
+  colspan?: { xs?: number; md?: number; lg?: number; xl?: number };
+  validationType?: ValidationSchemaTypes;
+  validations?: ValidationTypes[];
 }
 
 export interface TextInputProps extends CommonFormItemProps {

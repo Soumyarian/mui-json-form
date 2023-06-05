@@ -9,19 +9,18 @@ interface Props {
 }
 
 export const TextInput: FC<Props> = ({ name, typographyProps, label }) => {
-  const { formik } = useFormContext();
-
+  const { form } = useFormContext();
+  const { errors } = form.formState;
   return (
     <TextField
       type="text"
       label={label}
       fullWidth
+      variant="standard"
       {...typographyProps}
-      name={name}
-      value={formik.values[name]}
-      onChange={formik.handleChange}
-      error={formik.touched[name] && Boolean(formik.errors[name])}
-      helperText={formik.touched[name] && (formik.errors[name] as string)}
+      {...form.register(name)}
+      error={Boolean(errors[name])}
+      helperText={errors[name] ? (errors[name]!.message as string) : ""}
     />
   );
 };
